@@ -1,4 +1,6 @@
-This is the official Github repository of Real-Time Audio-Visual Speech Enhancement Using Pre-trained Visual Representations. 
+# RAVEN: Official Repository of Real-Time Audio-Visual Speech Enhancement Using Pre-trained Visual Representations
+This is the official repository of the paper **R**eal-Time **A**udio-**V**isual Speech **En**hancement Using Pre-trained Visual Representations, accepted at Interspeech 2025.
+
 
 ## Usage Instruction
 Clone this GitHub repo and run 
