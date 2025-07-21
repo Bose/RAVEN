@@ -1,0 +1,16 @@
+[submodule "Visual_Speech_Recognition_for_Multiple_Languages"] 
+	path = Visual_Speech_Recognition_for_Multiple_Languages
+	url = https://github.com/mpc001/Visual_Speech_Recognition_for_Multiple_Languages.git
+
+[submodule "TalkNet_ASD"]
+	path = TalkNet_ASD
+	url = https://github.com/TaoRuijie/TalkNet-ASD.git
+
+[submodule "LoCoNet_ASD"]
+	path = LoCoNet_ASD
+	url = https://github.com/SJTUwxz/LoCoNet_ASD.git
+
+[submodule "av_hubert"]
+	path = av_hubert
+	url = https://github.com/facebookresearch/av_hubert.git
+
