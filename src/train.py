@@ -33,6 +33,7 @@ def train(args, train_from_checkpoint=True):
         os.makedirs(args.checkpoint_dir)
 
     datamodule = VoxCeleb2DataModule(
+        data_path=config.DATA_FOLDER_PATH,
         visual_encoder=args.visual_encoder,
         embedding_size=args.embedding_size,
         batch_size=args.batch_size,

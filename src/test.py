@@ -19,6 +19,7 @@ def fxn():
 
 def test(visual_encoder, ckpt_path, test_condition, test_snr, embedding_size, batch_size, num_workers):
     datamodule = VoxCeleb2DataModule(
+        data_path=config.DATA_FOLDER_PATH,
         visual_encoder=visual_encoder,
         embedding_size=embedding_size,
         batch_size=batch_size,

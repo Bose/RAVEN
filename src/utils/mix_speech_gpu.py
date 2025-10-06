@@ -18,7 +18,7 @@ import src.config as config
 
 # Change SPLIT to "train" or "val" or "test" to process the corresponding dataset
 SPLIT = "train"
-INPUT_DIR = os.path.join(config.DATA_FOLDER_PATH, "dev/wav")
+INPUT_DIR = os.path.join("dev/wav")
 OUTPUT_DIR = os.path.join(config.DATA_FOLDER_PATH, "dev/mixed_wav")
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -54,12 +54,14 @@ def augment_speech(target_speaker, target_speaker_fp, voxceleb2_fps, musan_fps, 
 def get_interfering_fps(target_speaker_fp, musan_fps, voxceleb2_fps, augment_type):
     voxceleb2_fps = voxceleb2_fps[voxceleb2_fps != target_speaker_fp]
     interfering_speaker_fp = np.random.choice(voxceleb2_fps)
+    interfering_speaker_fp = os.path.join(config.DATA_FOLDER_PATH, interfering_speaker_fp)
 
     if augment_type == "none":
         other_interference_fp = None
     elif augment_type == "speech":
         voxceleb2_fps = voxceleb2_fps[voxceleb2_fps != interfering_speaker_fp]
         other_interference_fp = np.random.choice(voxceleb2_fps)
+        other_interference_fp = os.path.join(config.DATA_FOLDER_PATH, other_interference_fp)
     else:
         other_interference_fp = np.random.choice(musan_fps)
         other_interference_fp = os.path.join(config.MUSAN_FOLDER_PATH, other_interference_fp)
@@ -105,8 +107,9 @@ def process_file(m4a_path):
 
     if output_path.exists():
         return
-
-    target_speaker = crop_pad_audio(m4a_path, 16000, 5)
+    
+    target_speaker_fp = os.path.join(config.DATA_FOLDER_PATH, m4a_path)
+    target_speaker = crop_pad_audio(target_speaker_fp, 16000, 5)
     target_speaker = torch.tensor(target_speaker).to(device=device, non_blocking=True)
 
 

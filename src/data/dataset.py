@@ -16,8 +16,9 @@ SAMPLING_RATE = config.SAMPLING_RATE
 
 class VoxCeleb2(data.Dataset):
     
-    def __init__(self, split, visual_encoder, embedding_size, all_data=None, condition=None, snr=None):
+    def __init__(self, split, data_path, visual_encoder, embedding_size, all_data=None, condition=None, snr=None):
         self.split = split
+        self.data_path = data_path
         if all_data is None:
             all_data = pd.read_parquet(SPLIT_FILE_PATH)
         musan_fps = pd.read_csv("./data/musan_split.csv")
@@ -53,7 +54,7 @@ class VoxCeleb2(data.Dataset):
         return len(self.data)
     
     def __getitem__(self, idx):
-        audio_fp = self.data.iloc[idx]
+        audio_fp = os.path.join(self.data_path, self.data.iloc[idx])
         mixed_audio_fp = audio_fp.replace("/aac/", "/mixed_wav/").replace(".m4a", ".wav")
         # get raw target audio
         audio = crop_pad_audio(audio_fp, SAMPLING_RATE, 5)

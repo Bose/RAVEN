@@ -35,6 +35,7 @@ class VideoDataset(Dataset):
             ) :
         super().__init__()
         self.df = pd.read_csv(data_split_path)
+        self.data_path = data_path
         self.split= split
         self.file_list = pd.read_csv("./data/split.csv", header=None)[0].str.replace("/aac/", "/mp4/").str.replace(".m4a", ".mp4").tolist()
 
@@ -43,7 +44,7 @@ class VideoDataset(Dataset):
         return len(self.file_list)
     
     def __getitem__(self, index):
-        fp = self.file_list[index]
+        fp = os.path.join(self.data_path, self.file_list[index])
         video_tensor_orig = torchvision.io.read_video(fp, pts_unit='sec')[0]
         video_tensor = random_5s_clip(video_tensor_orig)
         assert video_tensor.shape[0] == 125, f"Video {fp} has {video_tensor.shape} frames"

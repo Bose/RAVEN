@@ -8,18 +8,19 @@ SPLIT_FILE_PATH = "./data/split.parquet"
 
 class VoxCeleb2DataModule(pl.LightningDataModule):
 
-    def __init__(self, visual_encoder, embedding_size, batch_size=4, num_workers=2):
+    def __init__(self, data_path, visual_encoder, embedding_size, batch_size=4, num_workers=2):
         super(VoxCeleb2DataModule, self).__init__()
         self.batch_size = batch_size
         self.num_workers = num_workers
         self.visual_encoder = visual_encoder
         self.embedding_size = embedding_size
+        self.data_path = data_path
 
     def setup(self, test_condition, test_snr):
         all_data = pd.read_parquet(SPLIT_FILE_PATH)
-        self.train_dataset = VoxCeleb2("train", self.visual_encoder, self.embedding_size, all_data)
-        self.val_dataset = VoxCeleb2("val", self.visual_encoder, self.embedding_size, all_data)
-        self.test_dataset = VoxCeleb2("test", self.visual_encoder, self.embedding_size, all_data, test_condition, test_snr)
+        self.train_dataset = VoxCeleb2("train", self.data_path, self.visual_encoder, self.embedding_size, all_data)
+        self.val_dataset = VoxCeleb2("val", self.data_path, self.visual_encoder, self.embedding_size, all_data)
+        self.test_dataset = VoxCeleb2("test", self.data_path, self.visual_encoder, self.embedding_size, all_data, test_condition, test_snr)
 
 
     def train_dataloader(self):
