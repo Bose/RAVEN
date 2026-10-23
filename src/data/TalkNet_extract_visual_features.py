@@ -76,7 +76,7 @@ class TalkNetBatchedPreprocessing:
     def extract_features(self):
         
         
-        failed_text_path = os.path.join(config.DATA_FOLDER_PATH, f"failed_Loconet_frontE_feat_{self.split}.txt")
+        failed_text_path = os.path.join(config.DATA_FOLDER_PATH, f"failed_TalkNet_frontE_feat_{self.split}.txt")
         with open(failed_text_path, 'w') as failed_txt:
             i = 0
             for video_tensor, fp in tqdm(self.dataloader):
